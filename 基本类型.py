@@ -5,3 +5,5 @@ print( bin(0xFFF))
 print(int(0xFEE))
 #转十六进制
 print(hex(123))
+
+
