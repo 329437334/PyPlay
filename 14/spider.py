@@ -1,4 +1,6 @@
-# 原生爬虫
+    '''
+     爬虫小demo
+     '''
 from urllib import request
 import re
 
@@ -10,26 +12,29 @@ class Spider():
     number_pattern = '<span class="video-number">([\s\S]*?)</span>'
 
     def __fetch_content(self):
+        '''
+         取数据
+        '''
         r = request.urlopen(Spider.url)
         htmls = r.read()  # 这里得到的数字就是字节码bit
         htmls = str(htmls, encoding='utf-8')
         return htmls
 
-    '''
-    数据精炼下
-    strip()去掉空格的内置函数
-    '''
-
     def __refine(self, anchors):
+        '''
+         数据精炼下
+         strip()去掉空格的内置函数
+        '''
         def l(anchor): return {'name': anchor['name'][0].strip(
         ),                          'number': anchor['number'][0]}
         return map(l, anchors)
 
-    '''
-    拿到数据
-    '''
+    
 
     def __analysis(self, htmls):
+        '''
+         拿到数据
+        '''
         anchors = []
         root_html = re.findall(Spider.root_pattern, htmls)
         for html in root_html:
@@ -39,11 +44,12 @@ class Spider():
             anchors.append(anchor)
         return anchors
 
-    '''
-    排序
-    '''
+    
 
     def __sort(self, anchors):
+        '''
+        排序
+        '''
         anchors = sorted(anchors, key=self.__sort_seed, reverse=True)
         return anchors
 
@@ -55,8 +61,12 @@ class Spider():
         return number
 
     def __show(self, anchors):
+        '''
+        展示
+        '''
         for rank in range(0, len(anchors)):
-            print(str(rank + 1) + ' : ' + anchors[rank]['name'] + '  ' + anchors[rank]['number'])
+            print(str(rank + 1) + ' : ' +
+                  anchors[rank]['name'] + '  ' + anchors[rank]['number'])
 
     def go(self):
         htmls = self.__fetch_content()
