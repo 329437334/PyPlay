@@ -5,17 +5,30 @@ import time
 
 
 def decorator(func):
-    def wrapper():
+    def wrapper(*args, **kw):
         print(time.time())
-        func()
+        func(*args, **kw)
     return wrapper
 
 
 @decorator
-def f1():
-    print('This is a function')
+def f1(func_name):
+    print('This is a function' + func_name)
 
 
-# f = decorator(f1)
-# f()
-f1()
+@decorator
+def f2(func_name1, func_name2, func_name3,):
+    print('This is func f2')
+
+
+@decorator
+def f3(func_name1, func_name2, func_name3, **kw):
+    print('This is func f3')
+    print(kw)
+
+
+f1('testName')
+f2('1', '2', '3')
+f3('name1', 'name2', 'name3', a=1,b=2,c='123')
+
+
