@@ -1,12 +1,12 @@
-    '''
-     爬虫小demo
-     '''
+'''
+爬虫小demo
+'''
 from urllib import request
 import re
 
 
 class Spider():
-    url = 'https://www.panda.tv/cate/dota2'
+    url = 'https://www.panda.tv/cate/dota1'
     root_pattern = '<div class="video-info">([\s\S]*?)</div>'
     name_pattern = '</i>([\s\S]*?)</span>'
     number_pattern = '<span class="video-number">([\s\S]*?)</span>'
@@ -29,8 +29,6 @@ class Spider():
         ),                          'number': anchor['number'][0]}
         return map(l, anchors)
 
-    
-
     def __analysis(self, htmls):
         '''
          拿到数据
@@ -43,8 +41,6 @@ class Spider():
             anchor = {'name': name, 'number': number}
             anchors.append(anchor)
         return anchors
-
-    
 
     def __sort(self, anchors):
         '''
