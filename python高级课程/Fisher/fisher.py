@@ -1,7 +1,7 @@
 '''
     Create by mccree
 '''
-from flask import Flask
+from flask import Flask, make_response
 
 
 app = Flask(__name__)
@@ -9,10 +9,28 @@ app = Flask(__name__)
 app.config.from_object('config')
 print(app.config['DEBUG'])
 
-@app.route('/start')
+#基于函数的视图,推荐
+@app.route('/123')
 def hello():
-    #基于函数的视图,推荐
-    return 'hello Qiyue'
+    '''
+        视图函数的return与普通函数不同,
+        还会返回 status code
+        content-type http headers,默认content-type = text/html
+        以上会封装成一个Response对象
+        return '<html></html>'
+    '''
+    headers = {
+        'content-type':'text/plain',
+        # 'content-type':'application/json',
+        # 'location':'http://www.baidu.com'
+    }
+    # response = make_response('<html>啦啦啦啦</html>', 301)
+    # response.headers = headers
+    # return response
+    return '<html></html>', 301, headers
+
+def helloo():
+    return 'hellow qy'
 
 #另一种路由注册办法,基于类的视图(即插视图)
 
