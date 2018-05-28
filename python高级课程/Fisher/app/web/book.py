@@ -20,7 +20,7 @@ def search():
     '''
     # 验证层概念,参数校验
     form = SearchForm(request.args)
-    # 参数验证通过，从验证层取数据避免没有默认值
+    # form.validate校验参数，从验证层取数据避免没有默认值
     if form.validate():
         q = form.q.data.strip()
         page = form.page.data
