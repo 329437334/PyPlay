@@ -1,7 +1,7 @@
 '''
     Create by MccRee
 '''
-from httper import HTTP
+from app.libs.httper import HTTP
 from flask import current_app
 
 class YuShuBook:
