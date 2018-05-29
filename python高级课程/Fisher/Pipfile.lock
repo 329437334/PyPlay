@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4f680bdad57975ec7652537457d1b03d97dacd4735dd6f885740acab38e912e7"
+            "sha256": "72f24bee5906994460ca3270fbd3070ce41d34d15c50cd119fc290a7f62cbc6c"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -49,6 +49,12 @@
                 "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"
             ],
             "version": "==6.7"
+        },
+        "cymysql": {
+            "hashes": [
+                "sha256:ac3990a2e2bc4dbea175d32a2f2f60d8e00d9127449b4aea50b5d499d0a5ba72"
+            ],
+            "version": "==0.9.10"
         },
         "flask": {
             "hashes": [
