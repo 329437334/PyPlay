@@ -9,6 +9,18 @@ from app.libs.helper import is_isbn_or_key
 from app.spider.yushu_book import YuShuBook
 from .blueprint import web
 
+@web.route('/test')
+def test1():
+    from flask import request
+    from app.test.none_local import n
+    print(n.v)
+    n.v = 2
+    print('----------')
+    print(getattr(request, 'v', None))
+    setattr(request, 'v', 2)
+    print(request.v)
+    print('----------')
+    return ''
 
 @web.route('/book/search')
 def search():
