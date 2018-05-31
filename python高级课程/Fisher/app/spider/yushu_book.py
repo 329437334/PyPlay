@@ -12,6 +12,7 @@ class YuShuBook:
     def search_by_isbn(cls, isbn):
         url = cls.isbn_url.format(isbn)
         result = HTTP.get(url)
+        # 插入数据库
         return result
 
     @classmethod
