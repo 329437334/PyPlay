@@ -4,6 +4,8 @@
 
 
 class BookViewModel:
+    # 描述特征(类变量, 实例变量)
+    # 行为(方法)
 
     @classmethod
     def package_single(cls, data, keyword):
