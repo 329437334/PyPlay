@@ -7,7 +7,20 @@
 <body>
 六月
 {{ data.age }}
+
 {#Jinja2模板引擎#}
 {#模板语音/引擎#}
+{#Object.#}
+{#  if#}
+{% if data.age > 18 %}
+    {{ data['name'] }}
+    {#模板中的if写法  if 与 endif形成作用域    #}
+    <ul></ul>
+{% elif data.age == 18%}
+        do elif something
+{% else %}
+        do else something
+{% endif %}
+{#  for in#}
 </body>
 </html>
