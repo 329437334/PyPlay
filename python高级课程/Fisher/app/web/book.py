@@ -21,7 +21,7 @@ def test():
 
     }
     # 模板 html
-    return render_template('test.html', data=r, data1=r1)
+    return render_template('test2.html', data=r, data1=r1)
 
 
 @web.route('/test1')
