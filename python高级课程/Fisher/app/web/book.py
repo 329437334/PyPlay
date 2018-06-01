@@ -2,7 +2,7 @@
     Create by MccRee
     #蓝图 blueprint
 '''
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 
 from app.forms.book import SearchForm
 from app.libs.helper import is_isbn_or_key
@@ -12,6 +12,19 @@ from .blueprint import web
 import json
 
 @web.route('/test')
+def test():
+    r = {
+        'name': '七月',
+        'age': 18
+    }
+    r1 = {
+
+    }
+    # 模板 html
+    return render_template('test.html', data=r, data1=r1)
+
+
+@web.route('/test1')
 def test1():
     from flask import request
     from app.test.none_local import n
@@ -51,7 +64,7 @@ def search():
 
         books.fill(yushu_book, q)
         # return jsonify(books)
-        return json.dumps(books, default=lambda o:o.__dict__)
+        return json.dumps(books, default=lambda o: o.__dict__)
 
     else:
         return jsonify(form.errors)
