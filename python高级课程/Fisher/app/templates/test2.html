@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for foo in ['1','a','b','c'] %}
-    {{ foo }}
-{% endfor %}
+{% extends 'layout.html' %}
+{% block content %}
+    {% for foo in ['1','a','b','c'] %}
+        {{ foo }}
+    {% endfor %}
 
-{% for key,value in data.items() %}
-    {{ key }} : {{ value }}
-{% endfor %}
-</body>
-</html>
+    {% for key,value in data.items() %}
+        {{ key }} : {{ value }}
+    {% endfor %}
+{% endblock %}
