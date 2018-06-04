@@ -6,6 +6,7 @@ from flask import current_app
 
 
 class YuShuBook:
+    per_page = 15
     isbn_url = 'http://t.yushu.im/v2/book/isbn/{}'
     keyword_url = 'http://t.yushu.im/v2/book/search?q={}&count={}&start={}'
 
@@ -32,8 +33,8 @@ class YuShuBook:
         self.total = data['total']
         self.books = data['books']
 
-    def search_by_keyword(self, keyword, page=1):
-        url = self.keyword_url.format(keyword, current_app.config['PER_PAGE'], self.calculate_start(page))
+    def search_by_keyword(self, keyword, page=2):
+        url = self.keyword_url.format(keyword, self.per_page, self.per_page * (page - 1))
         result = HTTP.get(url)
         self.__fill_collection(result)
 
