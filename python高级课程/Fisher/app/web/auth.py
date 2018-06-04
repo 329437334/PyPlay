@@ -3,6 +3,7 @@
 '''
 from .blueprint import web
 
-# @web.route('url')
-# def login():
-    # pass
+@web.route('/auth')
+def index():
+    pass
+

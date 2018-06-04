@@ -2,7 +2,7 @@
     Create by MccRee
     #蓝图 blueprint
 '''
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, flash
 
 from app.forms.book import SearchForm
 from app.libs.helper import is_isbn_or_key
@@ -10,6 +10,7 @@ from app.spider.yushu_book import YuShuBook
 from app.view_models.book import BookViewModel, BookCollection
 from .blueprint import web
 import json
+
 
 @web.route('/test')
 def test():
@@ -20,6 +21,8 @@ def test():
     r1 = {
 
     }
+    flash('hello qiyue', category='error')
+    flash('hello jiuyue', category='warning')
     # 模板 html
     return render_template('test.html', data=r, data1=r1)
 
@@ -63,8 +66,14 @@ def search():
             yushu_book.search_by_keyword(q, page)
 
         books.fill(yushu_book, q)
-        # return jsonify(books)
-        return json.dumps(books, default=lambda o: o.__dict__)
-
     else:
-        return jsonify(form.errors)
+        flash('搜索的关键字不符合要求,请重新输入关键字')
+
+    return render_template('search_result.html', books=books)
+
+
+@web.route('/book/<isbn>/detail')
+def book_detail(isbn):
+    pass
+
+
