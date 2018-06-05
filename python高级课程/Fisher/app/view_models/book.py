@@ -13,6 +13,7 @@ class BookViewModel:
         self.image = book['image']
         self.price = book['price']
         self.summary = book['summary']
+        self.isbn = book['isbn']
         self.pages = book['pages']
 
     #用属性访问的方式来调用函数,类似get方法
