@@ -5,7 +5,7 @@
 # 必须继承自db.Model
 from sqlalchemy.orm import relationship
 
-from app.models.base import Base, db
+from app.models.base import Base
 from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, SmallInteger
 
 
