@@ -1,11 +1,11 @@
 '''
     Create by MccRee
 '''
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, Form
 from wtforms.validators import DataRequired, Length, Email
 
 
-class RegisterForm():
+class RegisterForm(Form):
     email = StringField(validators=[DataRequired(), Length(8, 64), Email(message='电子邮箱不符合规范')])
 
     password = PasswordField(validators=[DataRequired(message='密码不可以为空,请输入你的密码'), Length(6, 32)])
