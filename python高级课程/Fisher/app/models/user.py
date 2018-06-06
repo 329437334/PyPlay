@@ -16,7 +16,7 @@ class User(Base):
     nickname = Column(String(24), nullable=False)
     phone_number = Column(String(18), unique=True)
     # 默认属性nickname 对应数据库nickname 如果要对应数据库中别的字段名就Column('username')
-    _password = Column('password')
+    _password = Column('password', String(128))
     email = Column(String(50), unique=True, nullable=False)
     confirmed = Column(Boolean, default=False)
     beans = Column(Float, default=0)
@@ -28,7 +28,7 @@ class User(Base):
     # 好比get方法
     @property
     def password(self):
-        pass
+        return self._password
 
     # 好比set方法, raw代表原始密码
     @password.setter
