@@ -24,3 +24,13 @@ class User(Base):
     receive_counter = Column(Integer, default=0)
     wx_open_id = Column(String(50))
     wx_name = Column(String(32))
+
+    # 好比get方法
+    @property
+    def password(self):
+        pass
+
+    # 好比set方法, raw代表原始密码
+    @password.setter
+    def password(self, raw):
+        self._password = generate_password_hash(raw)

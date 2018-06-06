@@ -17,9 +17,7 @@ def register():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate():
         user = User()
-        user.nickname = form.nickname.data
-        user.email = form.email.data
-        pass
+        user.set_attrs(form.data)
     return render_template('auth/register.html',form={'data':{}})
 
 
