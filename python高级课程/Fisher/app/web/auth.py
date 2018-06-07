@@ -9,9 +9,6 @@ from app.models.user import User
 from .blueprint import web
 from flask_login import login_user
 
-@web.route('/auth')
-def index():
-    pass
 
 #一个视图函数中处理注册页面 和 注册事件, 通过get/post方式来区分
 @web.route('/register', methods=['GET', 'POST'])
@@ -40,10 +37,10 @@ def login():
             login_user(user, remember=True)
             #request.args用于获取url中?后面的查询参数
             next = request.args.get('next')
-            if not next or next.startswitch('/'):
+            if not next or not next.startswith('/'):
                 #当用在地址栏中直接输入login时,会获取不到next所以直接跳到web.index, next.startswitch是为了防止重定向攻击
                 next = url_for('web.index')
-            return redirect('my/gifts')
+            return redirect(next)
         else:
             flash('账号不存在,或者密码错误')
     return render_template('auth/login.html', form=form)
