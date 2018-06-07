@@ -3,10 +3,12 @@
 '''
 
 from .blueprint import web
+from flask_login import login_required
 
 @web.route('/my/gifts')
+@login_required
 def my_gifts():
-    pass
+    return 'MyGifts'
 
 @web.route('/gifts/book/<isbn>')
 def save_to_gifts(isbn):

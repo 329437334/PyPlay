@@ -5,6 +5,7 @@
 # 必须继承自db.Model
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from app import login_manager
 from app.models.base import Base
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from flask_login import UserMixin
@@ -49,3 +50,8 @@ class User(Base, UserMixin):
         如果继承自了UserMimix,并且唯一标识就是id字段则可以不用实现get_id,否则还是要自己实现
         '''
         return self.id
+
+@login_manager.user_loader
+def get_user(uid):
+    #拿到用户模型
+    User.query.get(int(uid))
