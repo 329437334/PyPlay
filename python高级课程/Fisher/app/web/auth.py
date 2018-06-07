@@ -23,7 +23,7 @@ def register():
         user.set_attrs(form.data)
         db.session.add(user)
         db.session.commit()
-        redirect(url_for('web.login'))
+        return redirect(url_for('web.login'))
     return render_template('auth/register.html', form=form)
 
 
@@ -38,6 +38,12 @@ def login():
         if user and user.check_password(form.password.data):
             # 把数据库查到的user对象传给flask-login中的login_user,本质是把用户信息写入cookie, remeber为True则记住登陆,默认365天
             login_user(user, remember=True)
+            #request.args用于获取url中?后面的查询参数
+            next = request.args.get('next')
+            if not next or next.startswitch('/'):
+                #当用在地址栏中直接输入login时,会获取不到next所以直接跳到web.index, next.startswitch是为了防止重定向攻击
+                next = url_for('web.index')
+            return redirect('my/gifts')
         else:
             flash('账号不存在,或者密码错误')
     return render_template('auth/login.html', form=form)
