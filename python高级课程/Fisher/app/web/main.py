@@ -7,7 +7,7 @@ from .blueprint import web
 
 @web.route('/')
 def index():
-    pass
+    return 'hello'
 
 @web.route('/personal')
 def personal_center():
