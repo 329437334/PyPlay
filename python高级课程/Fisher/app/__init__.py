@@ -2,7 +2,11 @@
     Create by MccRee
 '''
 from flask import Flask
+from flask_login import LoginManager
 from app.models.base import db
+
+
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
@@ -13,6 +17,8 @@ def create_app():
     #把插件db与app绑定起来
     db.init_app(app)
     db.create_all(app=app)
+    #绑定插件
+    login_manager.init_app(app=app)
     return app
 
 
