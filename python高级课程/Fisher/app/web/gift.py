@@ -33,6 +33,7 @@ def save_to_gifts(isbn):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
+            raise e
     else:
         flash('这本书已添加至您的赠送清单或已存在于您的心愿单,请不要重复添加')
 
