@@ -6,9 +6,15 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager
+from app.libs.helper import is_isbn_or_key
 from app.models.base import Base
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from flask_login import UserMixin
+
+from app.models.gift import Gift
+from app.models.wish import Wish
+from app.spider.yushu_book import YuShuBook
+
 
 class User(Base, UserMixin):
     # 如果数据库不用默认表名, 需指定表名
@@ -20,6 +26,7 @@ class User(Base, UserMixin):
     _password = Column('password', String(128), nullable=False)
     email = Column(String(50), unique=True, nullable=False)
     confirmed = Column(Boolean, default=False)
+    # beans 鱼豆数量
     beans = Column(Float, default=0)
     send_counter = Column(Integer, default=0)
     receive_counter = Column(Integer, default=0)
@@ -36,22 +43,38 @@ class User(Base, UserMixin):
     def password(self, raw):
         self._password = generate_password_hash(raw)
 
-
     def check_password(self, raw):
         '''
         验证密码
         '''
         return check_password_hash(self._password, raw)
 
-    def get_id(self):
-        '''
-        flask-login使用时,对于传入的user对象必须实现get_id
-        :return: 表示用户身份的id
-        如果继承自了UserMimix,并且唯一标识就是id字段则可以不用实现get_id,否则还是要自己实现
-        '''
-        return self.id
+    def can_save_to_list(self, isbn):
+        if is_isbn_or_key(isbn) != 'isbn':
+            return False
+        yushu_book = YuShuBook()
+        yushu_book.search_by_isbn(isbn)
+        if not yushu_book.first:
+            return False
+        # 不允许同一个用户同时赠送多本相同的图书
+        # 不允许一个用户同时是赠送者又是索要者
+        gifting = Gift.query.filter_by(uid=self.id, isbn=isbn, launched=False).first()
+        wishing = Wish.query.filter_by(uid=self.id, isbn=isbn, launched=False).first()
+        if not gifting and not wishing:
+            return True
+        else:
+            return False
+
+    # def get_id(self):
+    #     '''
+    #     flask-login使用时,对于传入的user对象必须实现get_id
+    #     :return: 表示用户身份的id
+    #     如果继承自了UserMimix,并且唯一标识就是id字段则可以不用实现get_id,否则还是要自己实现
+    #     '''
+    #     return self.id
+
 
 @login_manager.user_loader
 def get_user(uid):
-    #拿到用户模型
+    # 拿到用户模型
     User.query.get(int(uid))
