@@ -1,11 +1,26 @@
 '''
     Create by MccRee
 '''
+from contextlib import contextmanager
 
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
+
 from sqlalchemy import SmallInteger, Column, Integer
 
-db = SQLAlchemy()
+# 这里在引入SQLAlchemy时,因为子类想要用SQLAlchemy名字,所以父类引入时就as _SQLAlchemy
+db = _SQLAlchemy()
+
+
+class SQLAlchemy(_SQLAlchemy):
+
+    @contextmanager
+    def auto_commit(self):
+        try:
+            yield
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
 
 
 class Base(db.Model):
