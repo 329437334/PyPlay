@@ -1,7 +1,7 @@
 '''
     Create by MccRee
 '''
-from flask import current_app, flash
+from flask import current_app, flash, redirect, url_for
 
 from app import db
 from app.models.gift import Gift
@@ -36,7 +36,7 @@ def save_to_gifts(isbn):
             # current_user.beans += current_app.config['BEANS_UPLOAD_ONE_BOOK']
     else:
         flash('这本书已添加至你的赠送清单或已存在于你的心愿清单，请不要重复添加')
-    # return redirect(url_for('web.book_detail', isbn=isbn))
+    return redirect(url_for('web.book_detail', isbn=isbn))
 
 @web.route('/gifts/<gid>/redraw')
 def redraw_from_gifts(gid):
