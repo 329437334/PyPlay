@@ -17,3 +17,4 @@ class Wish(Base):
     isbn = Column(String(15), nullable=False)
     launched = Column(Boolean, default=False)
 
+
