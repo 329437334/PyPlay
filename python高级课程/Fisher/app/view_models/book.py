@@ -15,6 +15,8 @@ class BookViewModel:
         self.summary = book['summary']
         self.isbn = book['isbn']
         self.pages = book['pages']
+        self.pubdate = book['pubdate']
+        self.binding = book['binding']
 
     #用属性访问的方式来调用函数,类似get方法
     @property
