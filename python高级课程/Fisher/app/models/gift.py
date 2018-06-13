@@ -7,7 +7,7 @@ from flask import current_app
 from sqlalchemy.orm import relationship
 
 from app.models.base import Base
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, SmallInteger
+from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey, SmallInteger, desc
 
 from app.spider.yushu_book import YuShuBook
 
@@ -32,7 +32,7 @@ class Gift(Base):
     # 对象代表一个礼物,在对象方法中查询多个礼物是不合理的
     @classmethod
     def recent(cls):
-        # filter_by 筛选 limit限制返回数 order_by排序 distinct去重
+        # filter_by 筛选 limit限制返回数 order_by排序 distinct去重 desc倒序
         # 链式调用
         # 主体 Query
         # 子函数 filter_by等
@@ -41,7 +41,7 @@ class Gift(Base):
          recent_gift = Gift.query.filter_by(
             launched=False).group_by(
             Gift.isbn).order_by(
-            Gift.create_time).limit(
+            desc(Gift.create_time)).limit(
             current_app.config['RECENT_BOOK_COUNT']).all()
          return recent_gift
 
