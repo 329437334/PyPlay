@@ -3,6 +3,7 @@
 '''
 
 # 必须继承自db.Model
+from flask import current_app
 from sqlalchemy.orm import relationship
 
 from app.models.base import Base
@@ -18,3 +19,13 @@ class Gift(Base):
     isbn = Column(String(15), nullable=False)
     # launched表示是否赠送出去
     launched = Column(Boolean, default=False)
+
+    def recent(self):
+        # filter_by 筛选 limit限制返回数 order_by排序 distinct去重
+         recent_gift = Gift.query.filter_by(
+            launched=False).group_by(
+            Gift.isbn).order_by(
+            Gift.create_time).limit(
+            current_app.config['RECENT_BOOK_COUNT']).all()
+         return recent_gift
+
