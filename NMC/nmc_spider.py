@@ -6,7 +6,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 
-TIME_INTERVAL = 180
+TIME_INTERVAL = 360
 DEFAUL_URL = 'http://www.nmc.cn/publish/radar/jiang-su/chang-zhou.htm'
 
 class Spider():
