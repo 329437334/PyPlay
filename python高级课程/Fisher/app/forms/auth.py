@@ -28,6 +28,11 @@ class RegisterForm(Form):
         if User.query.filter_by(nickname=field.data).first():
             raise ValidationError('昵称已存在')
 
+class EmailForm(Form):
+    email = StringField(validators=[DataRequired(), Length(8, 64), Email(message='电子邮箱不符合规范')])
+
+
+
 
 class LoginForm(Form):
     email = StringField(validators=[DataRequired(), Length(8, 64)])
