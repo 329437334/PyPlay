@@ -57,7 +57,7 @@ def forget_password_request():
             account_email = form.email.data
             # 这里如果使用first_or_404, 如果email不存在,那就抛404异常,后续代码不会走
             user = User.query.filter_by(email=account_email).first_or_404()
-            pass
+
     return render_template('auth/forget_password_request.html', form=form)
 
 
