@@ -4,9 +4,12 @@
 from flask import Flask
 from flask_login import LoginManager
 from app.models.base import db
+from flask_mail import Mail
 
 
 login_manager = LoginManager()
+mail = Mail()
+
 
 def create_app():
     app = Flask(__name__)
@@ -21,6 +24,8 @@ def create_app():
     login_manager.init_app(app=app)
     login_manager.login_view = 'web.login'
     login_manager.login_message = '请先登录或者注册'
+    #绑定邮件插件
+    mail.init_app(app)
     return app
 
 

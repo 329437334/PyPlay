@@ -12,3 +12,12 @@ DEBUG = True
 SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://jy:mql901111@139.196.52.216:3306/junyu'
 
 SECRET_KEY = 'fisherSecretKey'
+
+
+#Email 配置
+MAIL_SERVER = 'smtp.qq.com'
+MAIL_PORT = 465
+MAIL_USE_SSL = True
+MAIL_USE_TSL = False
+MAIL_USERNAME = '1656263239@qq.com'
+MAIL_PASSWORD = 'yblmvdsglargcgfg'

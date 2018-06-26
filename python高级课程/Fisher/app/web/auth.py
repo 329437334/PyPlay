@@ -51,13 +51,14 @@ def logout():
 
 @web.route('/reset/password', methods=['GET', 'POST'])
 def forget_password_request():
-    form = LoginForm(request.form)
+    form = EmailForm(request.form)
     if request.method == 'POST':
         if form.validate():
             account_email = form.email.data
             # 这里如果使用first_or_404, 如果email不存在,那就抛404异常,后续代码不会走
-            user = User.query.filter_by(email=account_email).first_or_404()
-
+            # user = User.query.filter_by(email=account_email).first_or_404()
+            from app.libs.email import send_email
+            send_email()
     return render_template('auth/forget_password_request.html', form=form)
 
 
