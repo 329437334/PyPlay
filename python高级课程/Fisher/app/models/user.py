@@ -3,6 +3,7 @@
 '''
 
 # 必须继承自db.Model
+from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager
@@ -14,7 +15,7 @@ from flask_login import UserMixin
 from app.models.gift import Gift
 from app.models.wish import Wish
 from app.spider.yushu_book import YuShuBook
-
+from itsdangerous import JSONWebSignatureSerializer as Serializer
 
 class User(Base, UserMixin):
     # 如果数据库不用默认表名, 需指定表名
@@ -42,6 +43,16 @@ class User(Base, UserMixin):
     @password.setter
     def password(self, raw):
         self._password = generate_password_hash(raw)
+
+    # 生成token
+    def generate_token(self, expiration=600):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        temp = s.dumps({'id':self.id}).decode('utf-8')
+        return temp
+
+    @staticmethod
+    def reset_password(new_password):
+        pass
 
     def check_password(self, raw):
         '''

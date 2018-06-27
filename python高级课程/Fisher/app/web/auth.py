@@ -4,7 +4,7 @@
 from flask import render_template, request, redirect, url_for, flash
 
 from app.models.base import db
-from app.forms.auth import RegisterForm, LoginForm, EmailForm
+from app.forms.auth import RegisterForm, LoginForm, EmailForm, ResetPasswordForm
 from app.models.user import User
 from .blueprint import web
 from flask_login import login_user, logout_user
@@ -58,11 +58,14 @@ def forget_password_request():
             # 这里如果使用first_or_404, 如果email不存在,那就抛404异常,后续代码不会走
             user = User.query.filter_by(email=account_email).first_or_404()
             from app.libs.email import send_email
-            send_email(form.email.data,'重置你的密码','email/reset_password.html', user=user, token='123123')
+            send_email(form.email.data,'重置你的密码','email/reset_password.html', user=user, token=user.generate_token())
     return render_template('auth/forget_password_request.html', form=form)
 
 
 #点了邮件中的地址就走这个路由
 @web.route('/reset/password/<token>', methods=['GET', 'POST'])
 def forget_password(token):
-    pass
+    form = ResetPasswordForm(request.form)
+    if request.method == 'POST' and form.validate():
+        pass
+    return render_template('auth/forget_password.html')
