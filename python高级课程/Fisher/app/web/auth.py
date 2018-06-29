@@ -8,6 +8,7 @@ from app.forms.auth import RegisterForm, LoginForm, EmailForm, ResetPasswordForm
 from app.models.user import User
 from .blueprint import web
 from flask_login import login_user, logout_user
+from app.libs.email import send_email
 
 
 # 一个视图函数中处理注册页面 和 注册事件, 通过get/post方式来区分
@@ -57,8 +58,9 @@ def forget_password_request():
             account_email = form.email.data
             # 这里如果使用first_or_404, 如果email不存在,那就抛404异常,后续代码不会走
             user = User.query.filter_by(email=account_email).first_or_404()
-            from app.libs.email import send_email
+            # 尝试把发邮件放入异步线程中执行
             send_email(form.email.data,'重置你的密码','email/reset_password.html', user=user, token=user.generate_token())
+            flash('一封邮件已经发送到邮箱' + account_email + '请及时查看')
     return render_template('auth/forget_password_request.html', form=form)
 
 
