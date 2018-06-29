@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager
 from app.libs.helper import is_isbn_or_key
-from app.models.base import Base
+from app.models.base import Base, db
 from sqlalchemy import Column, Integer, String, Boolean, Float
 from flask_login import UserMixin
 
@@ -47,12 +47,25 @@ class User(Base, UserMixin):
     # 生成token
     def generate_token(self, expiration=600):
         s = Serializer(current_app.config['SECRET_KEY'])
-        temp = s.dumps({'id':self.id}).decode('utf-8')
-        return temp
+        resetId = s.dumps({'id':self.id}).decode('utf-8')
+        return resetId
 
     @staticmethod
-    def reset_password(new_password):
-        pass
+    def reset_password(token, new_password):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token).encode('utf-8')
+        except:
+            return False
+        uid = data.get('id')
+        with db.auto_commit():
+            # 根据主键查询时可以用get
+            user = User.query.get(uid)
+            user.password = new_password
+        return True
+
+
+
 
     def check_password(self, raw):
         '''
