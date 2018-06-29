@@ -4,11 +4,11 @@
 from flask import Blueprint
 
 #使用蓝图
-user = Blueprint('user', __name__)
+from app.libs.redprint import Redprint
 
+api = Redprint('user')
 
-
-@user.route('/v1/user/get')
+@api.route('/get')
 def get_user():
     return 'I am qy'
 
