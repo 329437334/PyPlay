@@ -10,3 +10,4 @@ def create_blueprint_v1():
 
     user.api.register(bp_v1, url_prefix='/user')
     book.api.register(bp_v1, url_prefix='/book')
+    return bp_v1
