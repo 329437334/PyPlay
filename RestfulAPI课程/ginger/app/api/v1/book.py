@@ -5,6 +5,7 @@ from flask import Blueprint
 
 from app.libs.redprint import Redprint
 
+#redprint
 api = Redprint('book')
 
 #使用蓝图分离视图函数,是存在缺陷的,蓝图的本意是用来区分模块的,而不是只用来分离视图函数
