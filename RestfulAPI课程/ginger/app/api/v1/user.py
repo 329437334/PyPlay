@@ -30,4 +30,7 @@ def delete_user():
 
 @api.route('', methods=['POST'])
 def create_user():
+    # 提供给第三方的API
+    # 客户端 client 种类非常多
     pass
+
