@@ -44,7 +44,7 @@ else:
     print('false')
 
 
-a = [1,2,3]
+a = [1, 2, 3]
 
 for x in a:
     if x == 2:
@@ -54,8 +54,8 @@ for x in a:
 else:
     print('EOF')
 
-for y in range(0,10,3):
+for y in range(0, 10, 3):
     print(y, end='|')
 
-for x in range(10,0,-2):
+for x in range(10, 0, -2):
     print(x, end='|')
