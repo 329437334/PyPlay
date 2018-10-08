@@ -61,6 +61,21 @@ class Model(object):
         ms = [cls.new(m) for m in models]
         return ms
 
+    @classmethod
+    def find_by(cls):
+        """
+        u = User.find_by(username='gua')
+
+        上面这句可以返回一个 username 属性为 'gua' 的 User 实例
+        如果有多条这样的数据, 返回第一个
+        如果没这样的数据, 返回 None
+
+        注意, 这里参数的名字是可以变化的, 所以应该使用 **kwargs 功能
+        """
+        all = cls.all()
+        pass
+
+
     def save(self):
         """
         save 函数用于把一个 Model 的实例保存到文件中
