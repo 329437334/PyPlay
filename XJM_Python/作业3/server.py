@@ -25,6 +25,7 @@ class Request(object):
         self.query = {}
         self.body = ''
         self.headers = {}
+        self.cookies = {}
 
     def form(self):
         """

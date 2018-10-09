@@ -75,6 +75,18 @@ class Model(object):
         all = cls.all()
         pass
 
+    @classmethod
+    def find_all(cls):
+        """
+        us = User.find_all(password='123')
+        上面这句可以以 list 的形式返回所有 password 属性为 '123' 的 User 实例
+        如果没这样的数据, 返回 []
+
+        注意, 这里参数的名字是可以变化的, 所以应该使用 **kwargs 功能
+        """
+        all = cls.all()
+        pass
+
 
     def save(self):
         """
@@ -103,6 +115,6 @@ class Model(object):
         return '< {}\n{} >\n'.format(classname, s)
 
 
-# 以下两个类用于实际的数据处理
-# 因为继承了 Model
-# 所以可以直接 save load
+        # 以下两个类用于实际的数据处理
+        # 因为继承了 Model
+        # 所以可以直接 save load
