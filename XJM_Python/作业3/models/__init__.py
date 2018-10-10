@@ -35,6 +35,9 @@ def load(path):
 
 # Model 是用于存储数据的基类
 class Model(object):
+    def __init__(self):
+        self.id = None
+
     # @classmethod 说明这是一个 类方法
     # 类方法的调用方式是  类名.类方法()
     @classmethod
@@ -62,7 +65,7 @@ class Model(object):
         return ms
 
     @classmethod
-    def find_by(cls):
+    def find_by(cls, **kwargs):
         """
         u = User.find_by(username='gua')
 
@@ -72,11 +75,18 @@ class Model(object):
 
         注意, 这里参数的名字是可以变化的, 所以应该使用 **kwargs 功能
         """
-        all = cls.all()
-        pass
+        log('kwargs,', kwargs)
+        k, v = '',''
+        for key, value in kwargs.items():
+            k, v = key, value
+        all = cls,all()
+        for m in all:
+            if v == m.__dict__[k]:
+                return m
+        return None
 
     @classmethod
-    def find_all(cls):
+    def find_all(cls, **kwargs):
         """
         us = User.find_all(password='123')
         上面这句可以以 list 的形式返回所有 password 属性为 '123' 的 User 实例
@@ -84,8 +94,15 @@ class Model(object):
 
         注意, 这里参数的名字是可以变化的, 所以应该使用 **kwargs 功能
         """
-        all = cls.all()
-        pass
+        k, v = '', ''
+        for key, value in kwargs.items():
+            k, v = key, value
+        all = cls, all()
+        data = []
+        for m in all:
+            if v == m.__dict__[k]:
+                data.append(m)
+        return data
 
 
     def save(self):
@@ -93,6 +110,29 @@ class Model(object):
         save 函数用于把一个 Model 的实例保存到文件中
         """
         models = self.all()
+        if self.__dict__.get('id') is None:
+            # 如果没有id则加上id
+            if len(models) > 0:
+                # 不是第一个数据
+                self.id = models[-1].id + 1
+            else:
+                # 是第一条数据
+                self.di = 1
+            models.append(self)
+        else:
+            # 有 id 说明已经是存在于数据库文件中的数据了
+            # 那么就找到这条数据并替换之
+            index = -1
+            for i, m in enumerate(models):
+                if m.id == self.id:
+                    index = i
+                    break
+            # 看看是否找到下标，如果存在就替换掉
+            if index > -1:
+                models[index] = self
+
+            pass
+        #保存
         log('models', models)
         models.append(self)
         # __dict__ 是包含了对象所有属性和值的字典

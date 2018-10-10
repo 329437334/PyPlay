@@ -43,6 +43,32 @@ class Request(object):
             f[k] = v
         return f
 
+    def add_cookies(self):
+        """
+        """
+        cookies = self.headers.get('Cookie','')
+        kvs = cookies.split(';')
+        log('cookie', kvs)
+        for kv in kvs:
+            if '=' in kv:
+                k, v = kv.split('=')
+                self.cookies[k] = v
+
+
+    def add_headers(self, header):
+        """
+            [
+                'userAgent:fdafda'
+                'Cookid': Xfdafasdf;'
+            ]
+        """
+        lines = header
+        for line in lines:
+            k, v = line.split(':', 1)
+            self.headers[k] = v
+        self.cookies = {}
+        self.add_cookies()
+
 
 #
 request = Request()
