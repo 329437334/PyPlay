@@ -148,7 +148,7 @@ def run(host='', port=3000):
             log('debug ****', 'close')
             # 处理完请求, 关闭连接
             connection.close()
-            log('debug *', 'closed')
+            # log('debug *', 'closed')
 
 
 if __name__ == '__main__':

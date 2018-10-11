@@ -148,11 +148,14 @@ class User(Model):
     现在只有两个属性 username 和 password
     """
     def __init__(self, form):
+
         self.id = form.get('id', None)
         if self.id is not None:
             self.id = int(self.id)
         self.username = form.get('username', '')
         self.password = form.get('password', '')
+        log('form', form)
+        self.note = form.get('note', '')
 
     def validate_login(self):
         # return self.username == 'gua' and self.password == '123'

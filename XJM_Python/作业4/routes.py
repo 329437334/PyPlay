@@ -159,6 +159,16 @@ def route_static(request):
         img = header + f.read()
         return img
 
+def route_profile(request):
+    """
+       个人信息路由
+    """
+    username = current_user(request)
+    if username is not '【游客】':
+        log("登录用户", username)
+        pass
+    pass
+
 
 # 路由字典
 # key 是路由(路由就是 path)
@@ -168,4 +178,5 @@ route_dict = {
     '/login': route_login,
     '/register': route_register,
     '/messages': route_message,
+    '/profile': route_profile,
 }
