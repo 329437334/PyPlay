@@ -16,7 +16,7 @@ print("截图路径:{}".format(imgSrc))
 
 def screenShot():
     print('截图')
-    time.sleep(30)
+    time.sleep(3)
     img = pyautogui.screenshot('wowFish.png')
 
 
@@ -42,11 +42,15 @@ def findFishFloat():
     bottom_right = (top_left[0] + w, top_left[1] + h)  # 右下角的位置
     # 在原图上画矩形
     print('检测结果{},{}'.format(top_left,bottom_right))
+    x = (top_left[0]+bottom_right[0])/2
+    y = (top_left[1]+bottom_right[1])/2
+    print('中心点{},{}'.format(x,y))
+    pyautogui.move(x, y)
     cv.rectangle(imgBig, top_left, bottom_right, (0, 0, 255), 2)
     # 显示原图和处理后的图像
     cv.imshow("processed", imgBig)
     cv.waitKey(0)
-    # cv.destroyAllWindows()
+    cv.destroyAllWindows()
 
 # while True:
 #     time.sleep(30)
