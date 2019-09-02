@@ -15,13 +15,12 @@ print("截图路径:{}".format(imgSrc))
 
 
 def screenShot():
-    print('截图')
-    time.sleep(3)
+    print('===截图===')
     img = pyautogui.screenshot('wowFish.png')
 
 
-def findFishFloat():
 
+def findFishFloat():
     # 大图
     imgBig = cv.imread(
         imgSrc,
@@ -41,34 +40,34 @@ def findFishFloat():
     top_left = min_loc  # 左上角的位置
     bottom_right = (top_left[0] + w, top_left[1] + h)  # 右下角的位置
     # 在原图上画矩形
-    print('检测结果{},{}'.format(top_left,bottom_right))
-    x = (top_left[0]+bottom_right[0])/2
-    y = (top_left[1]+bottom_right[1])/2
-    print('中心点{},{}'.format(x,y))
-    pyautogui.move(x, y)
+
     cv.rectangle(imgBig, top_left, bottom_right, (0, 0, 255), 2)
     # 显示原图和处理后的图像
-    cv.imshow("processed", imgBig)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
+    cv.namedWindow('wowFishImage', cv.WINDOW_FULLSCREEN)
+    cv.imshow("wowFishImage", imgBig)
+    # cv.waitKey(0)
+    # cv.destroyAllWindows()
 
-# while True:
-#     time.sleep(30)
-#     pyautogui.press('1')
-#
-#     pyautogui.keyDown('w')
-#     time.sleep(1)
-#     pyautogui.keyUp('w')
-#     pyautogui.keyDown('s')
-#     time.sleep(1)
-#     pyautogui.keyUp('s')
-#     pyautogui.keyDown('a')
-#     time.sleep(1)
-#     pyautogui.keyUp('a')
-#     pyautogui.keyDown('d')
-#     time.sleep(1)
-#     pyautogui.keyUp('d')
+    print('检测结果{},{}'.format(top_left, bottom_right))
+    x = (top_left[0] + bottom_right[0]) / 2
+    y = (top_left[1] + bottom_right[1]) / 2
+    print('中心点{},{}'.format(x, y))
+    return (x,y)
+
+def moveMouse(x,y):
+    time.sleep(3)
+    print('移动鼠标')
+    pyautogui.moveTo(x, y)
+
+def stat():
+    while True:
+        pyautogui.press('1')
+        time.sleep(2)
+        screenShot()
+        x, y = findFishFloat()
+        moveMouse(x / 2, y / 2)
+        time.sleep(30)
 
 
-screenShot()
-findFishFloat()
+time.sleep(3)
+stat()
