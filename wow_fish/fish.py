@@ -5,16 +5,48 @@ import time
 import glob
 
 # WOW截图文件夹路径
-scrnShotPath = r'/Users/mccree/Desktop/Blizzard/World of Warcraft/_classic_/Screenshots/*.jpg'
+fishImgPath = r'/Users/mccree/Desktop/Blizzard/fishImg/fishImg.png'
 # 拿到最新的截图路径
-imgSrc = glob.glob(scrnShotPath)[-1]
+# scrnShotPath = r'wowFish.png'
+# imgSrc = glob.glob(scrnShotPath)[-1]
+imgSrc = r'wowFish.png'
 print("截图路径:{}".format(imgSrc))
-src = cv.imread(imgSrc)
 
 
 
+def screenShot():
+    print('截图')
+    time.sleep(30)
+    img = pyautogui.screenshot('wowFish.png')
 
 
+def findFishFloat():
+
+    # 大图
+    imgBig = cv.imread(
+        imgSrc,
+        0
+    )
+    # 鱼漂图
+    imgTemplate = cv.imread(
+        fishImgPath,
+        0
+    )
+    # 得到鱼漂图宽高
+    w, h = imgTemplate.shape[::-1]
+    # 模板匹配操作
+    res = cv.matchTemplate(imgBig, imgTemplate, cv.TM_SQDIFF_NORMED)
+    # 得到最大和最小值得位置
+    min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
+    top_left = min_loc  # 左上角的位置
+    bottom_right = (top_left[0] + w, top_left[1] + h)  # 右下角的位置
+    # 在原图上画矩形
+    print('检测结果{},{}'.format(top_left,bottom_right))
+    cv.rectangle(imgBig, top_left, bottom_right, (0, 0, 255), 2)
+    # 显示原图和处理后的图像
+    cv.imshow("processed", imgBig)
+    cv.waitKey(0)
+    # cv.destroyAllWindows()
 
 # while True:
 #     time.sleep(30)
@@ -32,3 +64,7 @@ src = cv.imread(imgSrc)
 #     pyautogui.keyDown('d')
 #     time.sleep(1)
 #     pyautogui.keyUp('d')
+
+
+screenShot()
+findFishFloat()
