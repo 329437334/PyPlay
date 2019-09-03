@@ -66,11 +66,11 @@ def stat():
         screenShot()
         x, y = findFishFloat()
         moveMouse(x / 2, y / 2)
-        time.sleep(15)
+        time.sleep(10)
         pyautogui.rightClick()
-        time.sleep(15)
+        time.sleep(20)
 
-
+1
 
 
 time.sleep(3)
