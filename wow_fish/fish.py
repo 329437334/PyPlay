@@ -41,11 +41,11 @@ def findFishFloat():
     bottom_right = (top_left[0] + w, top_left[1] + h)  # 右下角的位置
     # 在原图上画矩形
 
-    cv.rectangle(imgBig, top_left, bottom_right, (0, 0, 255), 2)
+    # cv.rectangle(imgBig, top_left, bottom_right, (0, 0, 255), 2)
     # 显示原图和处理后的图像
-    cv.namedWindow('wowFishImage', cv.WINDOW_FULLSCREEN)
-    cv.imshow("wowFishImage", imgBig)
-    # cv.waitKey(0)
+    # cv.namedWindow('wowFishImage', cv.WINDOW_FULLSCREEN)
+    # cv.imshow("wowFishImage", imgBig)
+    # cv.waitKey(0)11
     # cv.destroyAllWindows()
 
     print('检测结果{},{}'.format(top_left, bottom_right))
@@ -66,8 +66,13 @@ def stat():
         screenShot()
         x, y = findFishFloat()
         moveMouse(x / 2, y / 2)
-        time.sleep(30)
+        time.sleep(15)
+        pyautogui.rightClick()
+        time.sleep(15)
+
+
 
 
 time.sleep(3)
 stat()
+
