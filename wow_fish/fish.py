@@ -52,7 +52,7 @@ def findFishFloat():
     x = (top_left[0] + bottom_right[0]) / 2
     y = (top_left[1] + bottom_right[1]) / 2
     print('中心点{},{}'.format(x, y))
-    return (x,y)
+    return (x,y)m'm
 
 def moveMouse(x,y):
     time.sleep(3)
@@ -66,9 +66,9 @@ def stat():
         screenShot()
         x, y = findFishFloat()
         moveMouse(x / 2, y / 2)
-        time.sleep(10)
+        time.sleep(8)
         pyautogui.rightClick()
-        time.sleep(20)
+        time.sleep(1)
 
 1
 
