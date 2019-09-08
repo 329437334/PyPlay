@@ -1,8 +1,9 @@
 import cv2 as cv
 import pyautogui
 import os
-import time
+import time, threading
 import glob
+import asyncio
 
 # WOW截图文件夹路径
 fishImgPath = r'/Users/mccree/Desktop/Blizzard/fishImg/fishImg.png'
@@ -60,6 +61,10 @@ def moveMouse(x,y):
     pyautogui.moveTo(x, y)
 
 def stat():
+    # t = threading.Thread(target=printPiexl, name='Piexl')
+    # t.start()
+    # t.join()
+
     while True:
         pyautogui.press('1')
         time.sleep(2)
@@ -70,9 +75,17 @@ def stat():
         pyautogui.rightClick()
         time.sleep(1)
 
-1
+
+def printPiexl():
+    while True:
+        x, y = pyautogui.position()
+        pix = pyautogui.pixel(x, y)
+        print(pix)
 
 
 time.sleep(3)
 stat()
 
+# print('thread {} is start'.format(threading.current_thread().name))
+
+# print('thread {} is end'.format(threading.current_thread().name))
