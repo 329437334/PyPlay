@@ -71,16 +71,24 @@ def stat():
         screenShot()
         x, y = findFishFloat()
         moveMouse(x / 2, y / 2)
+
+        # t = threading.Thread(target=printPiexl, name='Piexl')
+        # t.start()
+        # t.join()
+
         time.sleep(8)
         pyautogui.rightClick()
         time.sleep(1)
 
 
 def printPiexl():
-    while True:
+    c = 0
+    while c < 100:
         x, y = pyautogui.position()
-        pix = pyautogui.pixel(x, y)
-        print(pix)
+        pix = pyautogui.pixel(x, y-30)
+        print('{}'.format((x,y)))
+        print('{}'.format(pix))
+        c = c + 1
 
 
 time.sleep(3)
