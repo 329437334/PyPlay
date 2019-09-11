@@ -78,7 +78,7 @@ def stat():
 
         time.sleep(8)
         pyautogui.rightClick()
-        time.sleep(1)
+        time.sleep(0.5)
 
 
 def printPiexl():
