@@ -58,7 +58,7 @@ def findFishFloat():
 def moveMouse(x,y):
     time.sleep(3)
     print('移动鼠标')
-    pyautogui.moveTo(x, y)
+    pyautogui.moveTo(x, y,duration=0.25)
 
 def stat():
     # t = threading.Thread(target=printPiexl, name='Piexl')
@@ -78,8 +78,14 @@ def stat():
 
         time.sleep(8)
         pyautogui.rightClick()
-        time.sleep(0.5)
+        # time.sleep(0.5)
 
+        # pyautogui.keyDown('A')
+        # time.sleep(1)
+        # pyautogui.keyUp('A')
+        # pyautogui.keyDown('D')
+        # time.sleep(1)
+        # pyautogui.keyUp('D')
 
 def printPiexl():
     c = 0
