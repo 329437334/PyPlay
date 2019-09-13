@@ -50,7 +50,7 @@ def moveMouse(x,y):
 def stat():
     while True:
         pyautogui.press('1')
-        time.sleep(2)
+        time.sleep(3)
         screenShot()
         x, y = findFishFloat()
         moveMouse(x / 2, y / 2)
