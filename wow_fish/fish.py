@@ -68,7 +68,7 @@ def printPiexl():
         x, y = pyautogui.position()
         # pix = pyautogui.pixel(x, y-30)
         print('{}'.format((x,y)))
-        # print('{}'.format(pix))
+        # print('{}'.format(pix))1
         # c = c + 1
 
 
@@ -79,5 +79,5 @@ def startSoundFish():
 
 
 time.sleep(3)
-# start()
-startSoundFish()
+start()
+# startSoundFish()
