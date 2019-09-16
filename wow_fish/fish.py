@@ -1,6 +1,7 @@
 import cv2 as cv
 import pyautogui
 import time
+import threading
 
 # 浮漂图片
 fishImgPath = r'fishImg.png'
@@ -47,7 +48,7 @@ def moveMouse(x,y):
     print('移动鼠标')
     pyautogui.moveTo(x, y,duration=0.25)
 
-def stat():
+def start():
     while True:
         pyautogui.press('1')
         time.sleep(3)
@@ -62,13 +63,20 @@ def stat():
 
 def printPiexl():
     c = 0
-    while c < 100:
+    while True:
         x, y = pyautogui.position()
         pix = pyautogui.pixel(x, y-30)
         print('{}'.format((x,y)))
         print('{}'.format(pix))
-        c = c + 1
+        # c = c + 1
+
+
+def startSoundFish():
+    t = threading.Thread(target=printPiexl, name='Piexl')
+    t.start()
+    t.join()
 
 
 time.sleep(3)
-stat()
+# start()
+startSoundFish()
