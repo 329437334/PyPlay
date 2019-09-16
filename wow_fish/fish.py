@@ -64,10 +64,11 @@ def start():
 def printPiexl():
     c = 0
     while True:
+        img = pyautogui.screenshot('sound.png')
         x, y = pyautogui.position()
-        pix = pyautogui.pixel(x, y-30)
+        # pix = pyautogui.pixel(x, y-30)
         print('{}'.format((x,y)))
-        print('{}'.format(pix))
+        # print('{}'.format(pix))
         # c = c + 1
 
 
