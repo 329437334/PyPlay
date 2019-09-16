@@ -55,18 +55,17 @@ def moveMouse(x,y):
 
 def start():
     while True:
+        time.sleep(3)
         pyautogui.press('1')
         time.sleep(3)
         screenShot()
         x, y = findFishFloat()
-
         moveMouse(x / 2, y / 2)
+        startSoundFish()
 
-        screen_record_efficient(x=x,y=y,w=200,h=200)
 
 
-        time.sleep(2)
-        pyautogui.rightClick()
+
 
 
 def printPiexl():
@@ -79,26 +78,30 @@ def printPiexl():
         # print('{}'.format(pix))1
         # c = c + 1
 
-
 def startSoundFish():
-    t = threading.Thread(target=printPiexl, name='Piexl')
-    t.start()
-    t.join()
-
-def screen_record_efficient(x,y,w,h):
-    # 800x600 windowed mode
-    mon = {"top": 240, "left": -2340, "width": 300, "height": 50}
+    #音频输入检测区域的坐标
+    mon = {"top": 250, "left": -2275, "width": 300, "height": 50}
+    #第一个电平位置 一个电平间距17
+    #第四个电平位置x,y = 51, 17
+    # mon = {"top": 250, "left": -2279, "width": 300, "height": 50}
 
     title = "[MSS] FPS benchmark"
     fps = 0
     sct = mss.mss()
     last_time = time.time()
 
-    while time.time() - last_time < 60:
+    while time.time() - last_time < 20:
         img = numpy.asarray(sct.grab(mon))
+        color = int(img[0, 0, 0])
+        if color > 100:
+            print('起竿')
+            time.sleep(0.8)
+            pyautogui.rightClick()
+            break
+        else:
+            print('等鱼上钩...')
         fps += 1
-
-        cv.imshow(title, img)
+        # cv.imshow(title, img)
         if cv.waitKey(25) & 0xFF == ord("q"):
             # cv.destroyAllWindows()
             break
@@ -108,12 +111,12 @@ def screen_record_efficient(x,y,w,h):
 
 
 time.sleep(2)
-# start()
-# startSoundFish()
+start()
 
 
 
-screen_record_efficient(x=1931,y=362,w=200,h=200)
+
+
 
 
 
