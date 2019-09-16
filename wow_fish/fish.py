@@ -2,6 +2,8 @@ import cv2 as cv
 import pyautogui
 import time
 import threading
+import mss
+import numpy
 import numpy as np
 import pyscreenshot as ImageGrab
 
@@ -57,10 +59,13 @@ def start():
         time.sleep(3)
         screenShot()
         x, y = findFishFloat()
+
         moveMouse(x / 2, y / 2)
 
+        screen_record_efficient(x=x,y=y,w=200,h=200)
 
-        time.sleep(8)
+
+        time.sleep(2)
         pyautogui.rightClick()
 
 
@@ -80,7 +85,38 @@ def startSoundFish():
     t.start()
     t.join()
 
+def screen_record_efficient(x,y,w,h):
+    # 800x600 windowed mode
+    mon = {"top": 240, "left": -2340, "width": 300, "height": 50}
 
-time.sleep(3)
-start()
+    title = "[MSS] FPS benchmark"
+    fps = 0
+    sct = mss.mss()
+    last_time = time.time()
+
+    while time.time() - last_time < 60:
+        img = numpy.asarray(sct.grab(mon))
+        fps += 1
+
+        cv.imshow(title, img)
+        if cv.waitKey(25) & 0xFF == ord("q"):
+            # cv.destroyAllWindows()
+            break
+
+    sct.close()
+    return fps
+
+
+time.sleep(2)
+# start()
 # startSoundFish()
+
+
+
+screen_record_efficient(x=1931,y=362,w=200,h=200)
+
+
+
+# screen_record()
+# print("PIL:", screen_record())
+# print("MSS:", screen_record_efficient())
